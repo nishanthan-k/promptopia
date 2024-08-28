@@ -1,12 +1,12 @@
 "use client";
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signIn, signOut, useSession, getProviders, getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 const Nav = () => {
-  const bool = true;
-  const [providers, setProviders] = useState(null);
+  const { data: session } = useSession();
+  const [providers, setProviders] = useState(true);
   const [toggleDropDown, setToggleDropDown] = useState(false);
   const navLinks = [
     {
@@ -27,7 +27,7 @@ const Nav = () => {
     }
 
     handleProviders();
-  })
+  }, [])
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
@@ -43,13 +43,13 @@ const Nav = () => {
       </Link>
 
       <div className='hidden sm:block'>
-        {bool ? (
+        {session?.user ? (
           <div className='flex ga-3 md:gap-5'>
             <Link href='/create-prompt' className='black_btn'>
               Create Post
             </Link>
 
-            <button type='button' onClick={signOut} className='outline_btn'>
+            <button type='button' onClick=  {signOut} className='outline_btn'>
               Sign Out
             </button>
 
@@ -57,7 +57,7 @@ const Nav = () => {
               <Image
                 width={30}
                 height={30}
-                src='/assets/images/logo.svg'
+                src={session?.user.image}
                 alt='Profile'
                 className='rounded-full'
               />
@@ -82,12 +82,12 @@ const Nav = () => {
       </div>
 
       <div className='sm:hidden flex relative'>
-        {bool ? (
+        {session?.user ? (
           <div className='flex'>
             <Image
                width={30}
                height={30}
-               src='/assets/images/logo.svg'
+               src={session?.user.image}
                alt='Profile'
                className='rounded-full'
                onClick={() => setToggleDropDown(!toggleDropDown)}
