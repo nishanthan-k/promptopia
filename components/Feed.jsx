@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import PromptCard from "./PromptCard";
 import useDebounce from "@hooks/useDebounce";
+import Loader from "./Loader";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className='mt-16 prompt_layout'>
+    <div className='mt-16 grid grid-cols-1 sm:grid-cols-2 
+      lg:grid-cols-2 place-items-center w-screen gap-4 sm:w-[600px] md:w-[720px] lg:w-[900px]'>
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -21,6 +23,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const debouncedSearch = useDebounce(searchText, 500);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
   
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
@@ -28,6 +31,7 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
       const response = await fetch('/api/prompt', {
         method: 'POST',
         body: JSON.stringify({
@@ -35,8 +39,9 @@ const Feed = () => {
         })
       });
       const data = await response.json();
-
+      
       setPosts(data);
+      setLoading(false);
     }
 
     fetchPosts();
@@ -55,10 +60,27 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList
-        data={posts}
-        handleTagClick={() => {}}
-      />
+      {loading ? (
+        <div className='prompt_layout'>
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+        </div>
+      ) : (
+        <>
+          {searchText && posts.length === 0 ? (
+            <h2 className='mt-6 desc'>No prompts found!</h2>
+          ) : (
+            <PromptCardList
+              data={posts}
+              handleTagClick={() => {}}
+            />
+          )}
+        </>
+      )}
     </section>
   )
 }
