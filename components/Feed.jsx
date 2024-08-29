@@ -7,7 +7,7 @@ import Loader from "./Loader";
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className='mt-16 grid grid-cols-1 sm:grid-cols-2 
-      lg:grid-cols-2 place-items-center w-screen gap-4 sm:w-[600px] md:w-[720px] lg:w-[900px]'>
+      lg:grid-cols-3 place-items-center w-screen gap-4 sm:w-[600px] md:w-[720px] lg:w-[1200px]'>
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -41,7 +41,9 @@ const Feed = () => {
       const data = await response.json();
       
       setPosts(data);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
 
     fetchPosts();

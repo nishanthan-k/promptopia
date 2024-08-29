@@ -48,8 +48,8 @@ const PromptCard = (props) => {
                   : '/assets/icons/copy.svg'
               }
               alt='copy button'
-              width={12}
-              height={12}
+              width={16}
+              height={16}
             />
           </div>
         </div>
