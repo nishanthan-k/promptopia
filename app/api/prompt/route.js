@@ -7,7 +7,7 @@ export const POST = async (req, res) => {
   try {
     await connectDB();
 
-    let query = {}
+    let query = {};
 
     if (search) {
       query = {
