@@ -29,4 +29,4 @@ export const POST = async (req, res) => {
     console.log(error);
     return new Response('Failed to fetch prompts', { status: 500 });
   }
-}
+};
