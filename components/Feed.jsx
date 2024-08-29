@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import PromptCard from "./PromptCard";
+import useDebounce from "@hooks/useDebounce";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -18,6 +19,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [searchText, setSearchText] = useState('');
+  const debouncedSearch = useDebounce(searchText, 500);
   const [posts, setPosts] = useState([]);
   
   const handleSearchChange = (e) => {
@@ -26,14 +28,19 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/prompt');
+      const response = await fetch('/api/prompt', {
+        method: 'POST',
+        body: JSON.stringify({
+          search: debouncedSearch,
+        })
+      });
       const data = await response.json();
 
       setPosts(data);
     }
 
     fetchPosts();
-  }, []);
+  }, [debouncedSearch, searchText]);
 
   return (
     <section className='feed'>
