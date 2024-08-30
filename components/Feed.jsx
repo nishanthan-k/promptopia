@@ -63,7 +63,7 @@ const Feed = () => {
       </form>
 
       {loading ? (
-        <div className='prompt_layout'>
+        <div className='mt-9 prompt_layout'>
           <Loader />
           <Loader />
           <Loader />
@@ -74,7 +74,7 @@ const Feed = () => {
       ) : (
         <>
           {searchText && posts.length === 0 ? (
-            <h2 className='mt-6 desc'>No prompts found!</h2>
+            <h2 className='mt-9 p-6 text-lg text-gray-600 sm:text-xl'>No prompts found!</h2>
           ) : (
             <PromptCardList
               data={posts}
