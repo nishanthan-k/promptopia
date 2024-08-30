@@ -22,7 +22,7 @@ export const POST = async (req, res) => {
       }
     }
 
-    const prompts = await Prompt.find(query).populate('creator');
+    const prompts = await Prompt.find(query).populate('creator').sort({ _id: -1 });
 
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
