@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const Nav = () => {
   const { data: session } = useSession();
-  const [providers, setProviders] = useState(true);
+  const [providers, setProviders] = useState(null);
   const [toggleDropDown, setToggleDropDown] = useState(false);
   const navLinks = [
     {
