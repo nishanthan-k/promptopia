@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loader = () => {
   return (
-    <div className="py-4 rounded-lg shadow-md w-60 sm:w-[360px] animate-pulse dark:bg-gray-50">
+    <div className="py-4 rounded-lg shadow-md w-[320px] sm:w-[360px] animate-pulse dark:bg-gray-50">
       <div className="flex p-2 space-x-4 sm:px-8">
         <div className="flex-shrink-0 w-14 h-14 rounded-full dark:bg-gray-300"></div>
         <div className="flex-1 py-2 space-y-4">
